@@ -17,3 +17,15 @@ function deleteTask(index) {
     if (!tasks[index]) return
     tasks.splice(index, 1)
 }
+
+
+function getFilteredTasks(type) {
+    switch (type) {
+        case "all":
+            return tasks
+        case "done":
+            return tasks.filter(task=>task.done==true)
+        case "todo":
+            return tasks.filter(task=>task.done==false)
+    }
+}
