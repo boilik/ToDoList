@@ -34,3 +34,17 @@ function getFilteredTasks(type) {
             return tasks.filter(task=>task.done==false)
     }
 }
+
+function render() {
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  tasks.forEach(task => {
+    const li = document.createElement("li");
+    li.textContent = task.text;
+    list.appendChild(li);
+  });
+}
+
+
+render();
