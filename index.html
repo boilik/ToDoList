@@ -1,6 +1,33 @@
-<input id="input">
-<button id="addBtn">Добавить</button>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ToDo List</h1>
 
-<ul id="list"></ul>
+        <div class="input-group">
+            <input type="text" id="input" placeholder="Новая задача...">
+            <button id="addBtn">Добавить</button>
+        </div>
 
-<script src="script.js"></script>
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="active">Активные</button>
+            <button class="filter-btn" data-filter="done">Выполненные</button>
+        </div>
+
+        <ul id="list"></ul>
+
+        <div class="info">
+            <span id="count">0 задач</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
