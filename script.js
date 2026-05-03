@@ -38,43 +38,68 @@ function getFilteredTasks(type) {
 function render() {
   const list = document.getElementById("list");
   list.innerHTML = "";
+  const filtered = getFilteredTasks(currentFilter)
 
-  tasks.forEach((task,index) => {
+  filtered.forEach((task) => {
+    const realIndex = tasks.indexOf(task);
+
     const li = document.createElement("li");
     li.textContent = task.text;
-    list.appendChild(li);
 
     li.addEventListener("click", () => {
-    toggleTask(index);
+    toggleTask(realIndex);
     render();
     });
 
     const btn = document.createElement("button")
     btn.textContent = "Delete";
-    li.appendChild(btn);
     
     btn.addEventListener("click", (e) => {
     e.stopPropagation()
-    deleteTask(index);
+    deleteTask(realIndex);
     render();
     });
 
     if (task.done){
         li.style.textDecoration="line-through"
     }
+
+    li.appendChild(btn);
+    list.appendChild(li);
   });
 }
 
-
 render();
 
-const but=document.getElementById('addBtn')
-but.addEventListener("click",() => {
-    const input=document.getElementById('input')
-    let inputText=input.value
-    if (!inputText) return 
-    addTask(inputText)
-    render()
+const input = document.getElementById('input');
+const but = document.getElementById('addBtn');
+
+but.addEventListener("click", () => {
+    let inputText = input.value;
+
+    if (!inputText) return;
+
+    addTask(inputText);
+    input.value = "";
+    render();
+});
+
+let currentFilter="all"
+
+const allBtn=document.getElementById('allBtn')
+allBtn.addEventListener('click',()=>{
+    currentFilter="all"
+    render();
 })
+const doneBtn=document.getElementById('doneBtn')
+doneBtn.addEventListener('click',()=>{
+    currentFilter="done"
+    render();
 
+})
+const todoBtn=document.getElementById('todoBtn')
+todoBtn.addEventListener('click',()=>{
+    currentFilter="todo"
+    render();
 
+})
