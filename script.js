@@ -39,10 +39,26 @@ function render() {
   const list = document.getElementById("list");
   list.innerHTML = "";
 
-  tasks.forEach(task => {
+  tasks.forEach((task,index) => {
     const li = document.createElement("li");
     li.textContent = task.text;
     list.appendChild(li);
+
+    li.addEventListener("click", () => {
+    toggleTask(index);
+    render();
+    });
+
+    const btn = document.createElement("button")
+    btn.textContent = "s";
+    btn.id='deleteBtn'
+    li.appendChild(btn);
+    
+    btn.addEventListener("click", (e) => {
+    e.stopPropagation()
+    deleteTask(index);
+    render();
+    });
   });
 }
 
@@ -57,3 +73,5 @@ but.addEventListener("click",() => {
     addTask(inputText)
     render()
 })
+
+
