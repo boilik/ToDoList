@@ -48,3 +48,12 @@ function render() {
 
 
 render();
+
+const but=document.getElementById('addBtn')
+but.addEventListener("click",() => {
+    const input=document.getElementById('input')
+    let inputText=input.value
+    if (!inputText) return 
+    addTask(inputText)
+    render()
+})
