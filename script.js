@@ -50,8 +50,7 @@ function render() {
     });
 
     const btn = document.createElement("button")
-    btn.textContent = "s";
-    btn.id='deleteBtn'
+    btn.textContent = "Delete";
     li.appendChild(btn);
     
     btn.addEventListener("click", (e) => {
@@ -59,6 +58,10 @@ function render() {
     deleteTask(index);
     render();
     });
+
+    if (task.done){
+        li.style.textDecoration="line-through"
+    }
   });
 }
 
