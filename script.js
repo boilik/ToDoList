@@ -8,21 +8,24 @@ function addTask(text){
 
 function createTask(text){
     let task={
+        id:Date.now(),
         text,
         done:false,
     }
     return task
 }
 
-function deleteTask(index) {
-    if (!tasks[index]) return
-    tasks.splice(index, 1)
+function deleteTask(id) {
+    const taskIndex=tasks.findIndex(item=>item.id==id)
+    if (taskIndex==-1) return;
+    tasks.splice(taskIndex, 1)
     saveTasks()
 }
 
-function toggleTask(index) {
-    if (!tasks[index]) return;
-    tasks[index].done=!tasks[index].done
+function toggleTask(id) {
+    const taskIndex=tasks.findIndex(item=>item.id==id)
+    if (taskIndex==-1) return;
+    tasks[taskIndex].done=!tasks[taskIndex].done
     saveTasks()
 
 }
@@ -44,22 +47,24 @@ function render() {
   const filtered = getFilteredTasks(currentFilter)
 
   filtered.forEach((task) => {
-    const realIndex = tasks.indexOf(task);
+    const taskId=task.id
 
     const li = document.createElement("li");
     li.textContent = task.text;
 
     li.addEventListener("click", () => {
-    toggleTask(realIndex);
+    toggleTask(taskId);
     render();
     });
+
+
 
     const btn = document.createElement("button")
     btn.textContent = "Delete";
     
     btn.addEventListener("click", (e) => {
     e.stopPropagation()
-    deleteTask(realIndex);
+    deleteTask(taskId);
     render();
     });
 
