@@ -1,8 +1,9 @@
-let tasks=[]
+let tasks=JSON.parse(localStorage.getItem("tasks"))||[]
 
 function addTask(text){
     let task=createTask(text)
-    tasks.push(task)  
+    tasks.push(task)
+    saveTasks()  
 }
 
 function createTask(text){
@@ -16,11 +17,13 @@ function createTask(text){
 function deleteTask(index) {
     if (!tasks[index]) return
     tasks.splice(index, 1)
+    saveTasks()
 }
 
 function toggleTask(index) {
     if (!tasks[index]) return;
     tasks[index].done=!tasks[index].done
+    saveTasks()
 
 }
 
@@ -103,3 +106,8 @@ todoBtn.addEventListener('click',()=>{
     render();
 
 })
+
+function saveTasks(){
+    localStorage.setItem("tasks",JSON.stringify(tasks))
+}
+
