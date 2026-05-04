@@ -41,6 +41,14 @@ function getFilteredTasks(type) {
     }
 }
 
+function editTask(newTextValue,taskId){
+    const taskIndex=tasks.findIndex(item=>item.id==taskId)
+    if (taskIndex==-1) return;
+    tasks[taskIndex].text=newTextValue
+    saveTasks()   
+    
+}
+
 function render() {
   const list = document.getElementById("list");
   list.innerHTML = "";
@@ -57,7 +65,26 @@ function render() {
     render();
     });
 
+    li.addEventListener("dblclick",()=>{
+        const inputField=document.createElement("input")
+        inputField.value=task.text
+        
+        li.textContent = ""
+        li.appendChild(inputField)
+        inputField.focus()
+        
 
+        inputField.addEventListener("keydown",(event)=>{
+            if (event.key=='Enter'){ 
+                editTask(inputField.value,taskId) 
+                render()}
+        })
+
+        inputField.addEventListener("click", (e) => {
+            e.stopPropagation()
+})
+    }
+    )
 
     const btn = document.createElement("button")
     btn.textContent = "Delete";
