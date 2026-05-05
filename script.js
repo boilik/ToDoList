@@ -112,26 +112,24 @@ function render() {
 const input = document.getElementById('input');
 const but = document.getElementById('addBtn');
 
-but.addEventListener("click", () => {
+but.addEventListener("click", handleAddTask);
+
+input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        handleAddTask()
+
+    }       
+})
+
+function handleAddTask(){
     let inputText = input.value;
 
     if (!inputText) return;
 
     addTask(inputText);
     input.value = "";
-    render();
-});
-
-input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        let inputText = input.value;
-        if (!inputText) return;
-
-        addTask(inputText);
-        input.value = "";
-        render();
-    }       
-})
+    render();    
+}
 
 
 let currentFilter="all"
