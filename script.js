@@ -48,6 +48,22 @@ function editTask(newTextValue,taskId){
     saveTasks()   
     
 }
+const list = document.getElementById("list");
+list.addEventListener("click",(event) =>{
+    let button = event.target.closest("button")
+    let li=event.target.closest("li")
+
+    if (!li)return
+    const taskId=li.dataset.id
+
+    if (button){
+        deleteTask(taskId)
+        render()
+        return
+    }
+    toggleTask(taskId)
+    render()
+  })
 
 function render() {
   const list = document.getElementById("list");
@@ -59,11 +75,8 @@ function render() {
 
     const li = document.createElement("li");
     li.textContent = task.text;
+    li.dataset.id=taskId
 
-    li.addEventListener("click", () => {
-    toggleTask(taskId);
-    render();
-    });
 
     li.addEventListener("dblclick",()=>{
         const inputField=document.createElement("input")
@@ -94,12 +107,6 @@ function render() {
     const btn = document.createElement("button")
     btn.textContent = "Delete";
     
-    btn.addEventListener("click", (e) => {
-    e.stopPropagation()
-    deleteTask(taskId);
-    render();
-    });
-
     if (task.done){
         li.style.textDecoration="line-through"
     }
@@ -117,7 +124,6 @@ but.addEventListener("click", handleAddTask);
 input.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         handleAddTask()
-
     }       
 })
 
