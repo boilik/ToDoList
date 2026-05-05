@@ -67,61 +67,71 @@ list.addEventListener("click",(event) =>{
     render()
   })
 
-list.addEventListener("dblclick",(event)=>{
-    const inputField=document.createElement("input")
 
-    let li=event.target.closest("li")
+let editMode = null 
 
-    if (!li)return
-    const taskId=+(li.dataset.id)
-    const span=li.querySelector("span")
+list.addEventListener("dblclick", (event) => {
+    const li = event.target.closest("li")
+    if (!li) return
 
-    inputField.value=span.textContent
-        
-    li.replaceChild(inputField,span)
-    inputField.focus()
+    const taskId = Number(li.dataset.id)
 
-    inputField.addEventListener("keydown",(event)=>{
-        if (event.key=='Enter'){ 
-            editTask(inputField.value,taskId) 
-            render()}
-    })
-
-    inputField.addEventListener("blur", () => {
-        editTask(inputField.value, taskId)
-        render()
-    })
-
-    inputField.addEventListener("click", (e) => {
-        e.stopPropagation()})
+    editMode = taskId
+    render()
 })
 
 function render() {
-  const list = document.getElementById("list");
-  list.innerHTML = "";
-  const filtered = getFilteredTasks(currentFilter)
+    const list = document.getElementById("list");
+    list.innerHTML = "";
 
-  filtered.forEach((task) => {
-    const taskId=task.id
+    const filtered = getFilteredTasks(currentFilter)
 
-    const li = document.createElement("li");
-    const span = document.createElement("span");
-    span.textContent = task.text;
-    li.dataset.id=taskId
+    filtered.forEach((task) => {
+        const li = document.createElement("li");
+        li.dataset.id = task.id
 
-    const btn = document.createElement("button")
-    btn.textContent = "Delete";
-    
-    if (task.done){
-        li.style.textDecoration="line-through"
-    }
+        const btn = document.createElement("button")
+        btn.textContent = "Delete";
 
-    li.appendChild(span);
-    li.appendChild(btn);
-    list.appendChild(li);
-  });
+        if (task.done) {
+            li.style.textDecoration = "line-through"
+        }
+
+        if (task.id === editMode) {
+            const input = document.createElement("input")
+            input.value = task.text
+
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    editTask(input.value, task.id)
+                    editMode = null
+                    render()
+                }
+            })
+
+            input.addEventListener("blur", () => {
+                editMode = null
+                render()
+            })
+
+            input.addEventListener("click", (e) => {
+                e.stopPropagation()
+            })
+
+            li.appendChild(input)
+
+            setTimeout(() => input.focus(), 0)
+
+        } else {
+            const span = document.createElement("span")
+            span.textContent = task.text
+            li.appendChild(span)
+        }
+
+        li.appendChild(btn)
+        list.appendChild(li)
+    });
 }
-
 const input = document.getElementById('input');
 const but = document.getElementById('addBtn');
 
