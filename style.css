@@ -21,6 +21,8 @@ input {
     border: none;
     border-radius: 4px;
     margin-right: 10px;
+    flex:1;
+    max-width: 50%;
 }
 
 #addBtn {
@@ -29,6 +31,49 @@ input {
     border: 2px solid #ffffff;
     border-radius: 4px;
     background-color: #555881;
+    color: white;
+    cursor: pointer;
+}
+
+#allBtn, #doneBtn, #todoBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    background-color: #9c9aa7;
+    color: white;
+    cursor: pointer;
+}
+
+.filters {
+    margin-top: 10px;
+}
+
+#list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #555881;
+    border-radius: 4px;
+}
+
+button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #9c9aa7;
     color: white;
     cursor: pointer;
 }
