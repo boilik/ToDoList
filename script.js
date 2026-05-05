@@ -122,6 +122,18 @@ but.addEventListener("click", () => {
     render();
 });
 
+input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        let inputText = input.value;
+        if (!inputText) return;
+
+        addTask(inputText);
+        input.value = "";
+        render();
+    }       
+})
+
+
 let currentFilter="all"
 render();
 
