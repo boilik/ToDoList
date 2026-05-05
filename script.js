@@ -80,6 +80,11 @@ function render() {
                 render()}
         })
 
+        inputField.addEventListener("blur", () => {
+            editTask(inputField.value, taskId)
+            render()
+        })
+
         inputField.addEventListener("click", (e) => {
             e.stopPropagation()
 })
@@ -104,8 +109,6 @@ function render() {
   });
 }
 
-render();
-
 const input = document.getElementById('input');
 const but = document.getElementById('addBtn');
 
@@ -120,6 +123,7 @@ but.addEventListener("click", () => {
 });
 
 let currentFilter="all"
+render();
 
 const allBtn=document.getElementById('allBtn')
 allBtn.addEventListener('click',()=>{
