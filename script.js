@@ -16,7 +16,7 @@ function createTask(text){
 }
 
 function deleteTask(id) {
-    const taskIndex=tasks.findIndex(item=>item.id==id)
+    const taskIndex=tasks.findIndex(item=>item.id===id)
     if (taskIndex==-1) return;
     tasks.splice(taskIndex, 1)
     saveTasks()
@@ -48,13 +48,15 @@ function editTask(newTextValue,taskId){
     saveTasks()   
     
 }
+
 const list = document.getElementById("list");
+
 list.addEventListener("click",(event) =>{
-    let button = event.target.closest("button")
     let li=event.target.closest("li")
+    let button = event.target.closest("button")
 
     if (!li)return
-    const taskId=li.dataset.id
+    const taskId=+(li.dataset.id)
 
     if (button){
         deleteTask(taskId)
@@ -65,6 +67,35 @@ list.addEventListener("click",(event) =>{
     render()
   })
 
+list.addEventListener("dblclick",(event)=>{
+    const inputField=document.createElement("input")
+
+    let li=event.target.closest("li")
+
+    if (!li)return
+    const taskId=+(li.dataset.id)
+    const span=li.querySelector("span")
+
+    inputField.value=span.textContent
+        
+    li.replaceChild(inputField,span)
+    inputField.focus()
+
+    inputField.addEventListener("keydown",(event)=>{
+        if (event.key=='Enter'){ 
+            editTask(inputField.value,taskId) 
+            render()}
+    })
+
+    inputField.addEventListener("blur", () => {
+        editTask(inputField.value, taskId)
+        render()
+    })
+
+    inputField.addEventListener("click", (e) => {
+        e.stopPropagation()})
+})
+
 function render() {
   const list = document.getElementById("list");
   list.innerHTML = "";
@@ -74,35 +105,9 @@ function render() {
     const taskId=task.id
 
     const li = document.createElement("li");
-    li.textContent = task.text;
+    const span = document.createElement("span");
+    span.textContent = task.text;
     li.dataset.id=taskId
-
-
-    li.addEventListener("dblclick",()=>{
-        const inputField=document.createElement("input")
-        inputField.value=task.text
-        
-        li.textContent = ""
-        li.appendChild(inputField)
-        inputField.focus()
-        
-
-        inputField.addEventListener("keydown",(event)=>{
-            if (event.key=='Enter'){ 
-                editTask(inputField.value,taskId) 
-                render()}
-        })
-
-        inputField.addEventListener("blur", () => {
-            editTask(inputField.value, taskId)
-            render()
-        })
-
-        inputField.addEventListener("click", (e) => {
-            e.stopPropagation()
-})
-    }
-    )
 
     const btn = document.createElement("button")
     btn.textContent = "Delete";
@@ -111,6 +116,7 @@ function render() {
         li.style.textDecoration="line-through"
     }
 
+    li.appendChild(span);
     li.appendChild(btn);
     list.appendChild(li);
   });
