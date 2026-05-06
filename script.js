@@ -11,6 +11,7 @@ function createTask(text){
         id:Date.now(),
         text,
         done:false,
+        priority:false,
     }
     return task
 }
@@ -54,6 +55,7 @@ const list = document.getElementById("list");
 list.addEventListener("click",(event) =>{
     let li=event.target.closest("li")
     let button = event.target.closest("button")
+    let span = event.target.closest("span")
 
     if (!li)return
     const taskId=+(li.dataset.id)
@@ -61,6 +63,10 @@ list.addEventListener("click",(event) =>{
     if (button){
         deleteTask(taskId)
         render()
+        return
+    }else if (span){
+        span.classList.toggle("starred")
+        span.classList.toggle("empty")
         return
     }
     toggleTask(taskId)
@@ -93,6 +99,11 @@ function render() {
         const btn = document.createElement("button")
         btn.textContent = "Delete";
         btn.classList.add("delete-btn")
+
+        const star= document.createElement("span")
+        star.textContent = "☆"
+        star.classList.add("star")
+        
 
         if (task.done) {
             li.style.textDecoration = "line-through"
@@ -130,6 +141,7 @@ function render() {
         }
 
         li.appendChild(btn)
+        li.appendChild(star)
         list.appendChild(li)
     });
 }
