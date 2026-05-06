@@ -55,7 +55,6 @@ const list = document.getElementById("list");
 list.addEventListener("click",(event) =>{
     let li=event.target.closest("li")
     let button = event.target.closest("button")
-    let span = event.target.closest("span")
 
     if (!li)return
     const taskId=+(li.dataset.id)
@@ -64,9 +63,10 @@ list.addEventListener("click",(event) =>{
         deleteTask(taskId)
         render()
         return
-    }else if (span){
-        span.classList.toggle("starred")
-        span.classList.toggle("empty")
+    }
+    if (event.target.classList.contains("star")) {
+        togglePriority(taskId)
+        render()
         return
     }
     toggleTask(taskId)
@@ -86,9 +86,19 @@ list.addEventListener("dblclick", (event) => {
     render()
 })
 
+
+function togglePriority(id) {
+    const task = tasks.find(t => t.id == id)
+    if (!task) return
+    task.priority = !task.priority
+    saveTasks()
+}
+
 function render() {
     const list = document.getElementById("list");
     list.innerHTML = "";
+
+    const score=document.getElementById("score")
 
     const filtered = getFilteredTasks(currentFilter)
 
@@ -101,7 +111,7 @@ function render() {
         btn.classList.add("delete-btn")
 
         const star= document.createElement("span")
-        star.textContent = "☆"
+        star.textContent = task.priority ? "★" : "☆"
         star.classList.add("star")
         
 
@@ -144,6 +154,10 @@ function render() {
         li.appendChild(star)
         list.appendChild(li)
     });
+    let done = 0
+    tasks.forEach(t => { if (t.done) done++ })
+
+    score.textContent = `Total: ${tasks.length}, Done: ${done}, Todo: ${tasks.length - done}`    
 }
 const input = document.getElementById('input');
 const but = document.getElementById('addBtn');
