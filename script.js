@@ -157,20 +157,45 @@ function handleAddTask(){
 let currentFilter="all"
 render();
 
+
+function updateActiveFilterButton() {
+    // Убираем класс active у всех кнопок фильтров
+    allBtn.classList.remove('active');
+    doneBtn.classList.remove('active');
+    todoBtn.classList.remove('active');
+    
+    // Добавляем класс active текущей кнопке
+    switch(currentFilter) {
+        case "all":
+            allBtn.classList.add('active');
+            break;
+        case "done":
+            doneBtn.classList.add('active');
+            break;
+        case "todo":
+            todoBtn.classList.add('active');
+            break;
+    }
+} 
+
+
 const allBtn=document.getElementById('allBtn')
 allBtn.addEventListener('click',()=>{
     currentFilter="all"
+    updateActiveFilterButton()
     render();
 })
 const doneBtn=document.getElementById('doneBtn')
 doneBtn.addEventListener('click',()=>{
     currentFilter="done"
+    updateActiveFilterButton()
     render();
 
 })
 const todoBtn=document.getElementById('todoBtn')
 todoBtn.addEventListener('click',()=>{
     currentFilter="todo"
+    updateActiveFilterButton()
     render();
 
 })
