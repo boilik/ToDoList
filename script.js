@@ -92,6 +92,7 @@ function render() {
 
         const btn = document.createElement("button")
         btn.textContent = "Delete";
+        btn.classList.add("delete-btn")
 
         if (task.done) {
             li.style.textDecoration = "line-through"
@@ -159,12 +160,10 @@ render();
 
 
 function updateActiveFilterButton() {
-    // Убираем класс active у всех кнопок фильтров
     allBtn.classList.remove('active');
     doneBtn.classList.remove('active');
     todoBtn.classList.remove('active');
     
-    // Добавляем класс active текущей кнопке
     switch(currentFilter) {
         case "all":
             allBtn.classList.add('active');

@@ -35,9 +35,14 @@ input {
     color: white;
     cursor: pointer;
 }
-button.active{
-    transform: scale(0.95);
-    color: #9c9aa7;
+#allBtn.active, 
+#doneBtn.active, 
+#todoBtn.active{
+    background-color: #555881;
+}
+
+ul li:hover {
+    transform: scale(1.05);
 }
 #addBtn:hover, #allBtn:hover, #doneBtn:hover, #todoBtn:hover {
     transform: scale(1.2);
@@ -58,6 +63,11 @@ button.active{
     background-color: #9c9aa7;
     color: white;
     cursor: pointer;
+}
+
+button.delete-btn:hover {
+    background-color: #000000;
+
 }
 
 .filters {
