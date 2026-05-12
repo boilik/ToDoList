@@ -180,10 +180,35 @@ function render() {
     let done = 0
     tasks.forEach(t => { if (t.done) done++ })
 
-    score.textContent = `Total: ${tasks.length}, Done: ${done}, Todo: ${tasks.length - done}`    
+    let total =tasks.length
+    let todo=tasks.length-done
+    score.textContent = `Total: ${total}, Done: ${done}, Todo: ${todo}`
+
+    const dateToday=document.getElementById("date")
+    dateToday.textContent=getDate()
+
+    updateInformationBlock(total,done,todo)
+}
+function updateInformationBlock(total,done,todo){
+    const allTasks=document.getElementById("numberAllTasks")
+    allTasks.textContent=total
+    const finishedTasks=document.getElementById("numberfinishedTasks")
+    finishedTasks.textContent=done
+    const processTasks=document.getElementById("numberProcessTasks")
+    processTasks.textContent=todo
 }
 
+function getDate(){
+    const date = new Date();
 
+    const result = date.toLocaleDateString("en-EN", {
+        day: "numeric",
+        month: "long",
+        weekday: "long"
+    });
+    return result
+
+}
 
 const input = document.getElementById('input');
 const but = document.getElementById('addBtn');
