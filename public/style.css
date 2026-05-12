@@ -11,9 +11,16 @@ body {
 
 .controls {
     display: flex;
+    flex-direction:row ;
     align-items: center;
     justify-content: center;
     font-family: "Nunito", sans-serif;
+}
+
+.filters{
+    display: flex;
+    flex-direction: row;
+    margin-left: 8%;
 }
 
 span.starred{
@@ -41,16 +48,15 @@ input {
 #addBtn {
     padding: 10px 20px;
     font-size: 16px;
-    border: 2px solid #ffffff;
-    border-radius: 4px;
-    background-color: #555881;
+    border-radius: 25px;
+    background-color:transparent;
     color: white;
     cursor: pointer;
 }
 #allBtn.active, 
 #doneBtn.active, 
 #todoBtn.active{
-    background-color: #555881;
+    background-color: #a65daa;
 }
 
 ul li:hover {
@@ -58,21 +64,17 @@ ul li:hover {
 }
 #addBtn:hover, #allBtn:hover, #doneBtn:hover, #todoBtn:hover {
     transform: scale(1.2);
-    box-shadow: 0px 0px 10px 5px rgb(255, 255, 255);
+    background-color:#776ffd;
     padding: 10px 20px;
     font-size: 16px;
-    border: 2px solid #ffffff;
-    border-radius: 4px;
-    background-color: #555881;
-    color: white;
+
     cursor: pointer;
 }
-#allBtn, #doneBtn, #todoBtn {
+.filters button{
     padding: 10px 20px;
-    font-size: 16px;
-    border: 2px solid #ffffff;
-    border-radius: 4px;
-    background-color: #9c9aa7;
+    font-size: 17px;
+    border-radius: 19px;
+    background-color: transparent;
     color: white;
     cursor: pointer;
 }
@@ -84,6 +86,7 @@ button.delete-btn:hover {
 
 button.delete-btn {
     margin-left: auto; 
+    background-color:#776ffd;
 }
 
 
@@ -103,10 +106,12 @@ li {
     align-items: center;
     justify-content: space-between;
     width: 50%;
-    margin: 10px auto;
+    margin: 0px auto;
     padding: 10px;
-    background-color: #555881;
+    margin-bottom: 10px;
+    background-color: rgb(16, 18, 44, 0.8);
     border-radius: 4px;
+    height:5vh;
 }
 
 button {
@@ -115,7 +120,6 @@ button {
     font-size: 14px;
     border: none;
     border-radius: 4px;
-    background-color: #9c9aa7;
     color: white;
     cursor: pointer;
 }
@@ -166,6 +170,7 @@ button {
     padding: 0;
     margin: 0;
     width: 100%;
+    margin-top: 20px;
 }
 
 .links li {
@@ -204,14 +209,14 @@ button {
     background-color: rgba(221, 4, 167, 0.2);
 }
 #finishedTasks{
-    background-color: rgba(14, 230, 194, 0.2);
+    background-color: rgba(35, 230, 197, 0.2);
 }
 #processTasks{
     background-color: rgba(110, 3, 197, 0.2);
 }
 
 #allTasks p{
-    color: #f159fa;
+    color: #ec8bf1;
 }
 
 #finishedTasks p{
