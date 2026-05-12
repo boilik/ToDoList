@@ -2,9 +2,10 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
-    background-color: #141327;
     font-family: "Manrope", sans-serif;
     color: #ffffff;
+    background-image:url(/img/bg1.png) ;
+    background-attachment: fixed;
 }
 
 
