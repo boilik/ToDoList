@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "express": "^5.2.1",
+    "express-handlebars": "^9.0.1",
     "hbs": "^4.2.1",
     "nodemon": "^3.1.14"
   }
