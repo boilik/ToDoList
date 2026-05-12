@@ -71,8 +71,26 @@ list.addEventListener("click",(event) =>{
     }
     toggleTask(taskId)
     render()
-  })
 
+    li.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text/plain", li.dataset.id)
+    })
+  })
+  
+list.addEventListener("dragover", (e) => {
+    e.preventDefault()  
+})
+
+list.addEventListener("drop", (e) => {
+    e.preventDefault() 
+    const id = e.dataTransfer.getData("text/plain")
+    const draggedTaskIndex = tasks.findIndex(t => t.id == id)
+    if (draggedTaskIndex == -1) return
+    const draggedTask = tasks[draggedTaskIndex]
+    tasks.splice(draggedTaskIndex,1,draggedTask)
+    saveTasks()
+    render()
+})
 
 let editMode = null 
 
@@ -85,6 +103,9 @@ list.addEventListener("dblclick", (event) => {
     editMode = taskId
     render()
 })
+
+
+
 
 
 function togglePriority(id) {
@@ -150,6 +171,8 @@ function render() {
             li.appendChild(span)
         }
 
+        li.draggable = true
+
         li.appendChild(btn)
         li.appendChild(star)
         list.appendChild(li)
@@ -159,6 +182,9 @@ function render() {
 
     score.textContent = `Total: ${tasks.length}, Done: ${done}, Todo: ${tasks.length - done}`    
 }
+
+
+
 const input = document.getElementById('input');
 const but = document.getElementById('addBtn');
 
