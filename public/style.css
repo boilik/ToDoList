@@ -137,7 +137,7 @@ button {
   -webkit-text-fill-color: transparent;
 }
 .sidebar{
-    background-color: #00000b;
+    background-color: rgba(0, 0, 0, 0.7);
     display:block;
     overflow-y: none;
     min-width: 100%;
@@ -186,4 +186,58 @@ button {
 
 .links a:hover{
     color: #f159fa;
+}
+
+#informationBlock  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 17vh;
+}
+
+.informationBlock{
+    width: 20%;
+    border-radius: 15px;
+}
+
+#allTasks{
+    background-color: rgba(221, 4, 167, 0.2);
+}
+#finishedTasks{
+    background-color: rgba(14, 230, 194, 0.2);
+}
+#processTasks{
+    background-color: rgba(110, 3, 197, 0.2);
+}
+
+#allTasks p{
+    color: #f159fa;
+}
+
+#finishedTasks p{
+    color:#6af9fe
+}
+
+#processTasks p{
+    color: #b7b4ff;
+}
+.date{
+    text-align: left;
+    margin-left: 8%;
+}
+
+.informationBlock div{
+    font-size: 30px;
+    text-align: left;
+    padding-left: 90px;
+    
+}
+
+.informationBlock p{
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+#date{
+    color: #9c9aa7;
 }
