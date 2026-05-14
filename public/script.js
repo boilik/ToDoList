@@ -1,7 +1,7 @@
 let tasks=JSON.parse(localStorage.getItem("tasks"))||[]
 
-function addTask(text,description,category,priority,date){
-    let task=createTask(text,description,category,priority,date)
+function addTask(text,description,category,priority,date,timeStart,timeEnd){
+    let task=createTask(text,description,category,priority,date,timeStart,timeEnd)
     tasks.push(task)
     saveTasks()  
 }
@@ -274,7 +274,8 @@ priority.addEventListener('click',(event)=>{
 
 
 let editid=false
-
+const timeStart = document.getElementById('timeStart')
+const timeEnd = document.getElementById('timeEnd')
 
 function handleAddTask(edit){
     edit||=false
@@ -286,23 +287,24 @@ function handleAddTask(edit){
     let prioritySelected =priority.querySelector('input:checked')
     let priorityValue= prioritySelected.id=='high'?true:false
     let date=inputDate.value
+    let timeStart=timeStart.value
 
     if (!inputText) return;
 
     if (editid){
-        editTask(editid,inputText,descriptionText,selectedCategoryName,priorityValue,date)
+        editTask(editid,inputText,descriptionText,selectedCategoryName,priorityValue,date,timeStart,timeEnd)
         saveTasks()
         render()
         return
     }
 
-    addTask(inputText,descriptionText,selectedCategoryName,priorityValue,date);
+    addTask(inputText,descriptionText,selectedCategoryName,priorityValue,date,timeStart,timeEnd);
     input.value = "";
     render();    
 }
 
 
-function editTask(id,text,description,category,priority,date){
+function editTask(id,text,description,category,priority,date,timeStart,timeEnd){
     const taskIndex=tasks.findIndex(item=>item.id===id)
     if (taskIndex==-1) return;
     tasks[taskIndex].text=text
@@ -310,6 +312,8 @@ function editTask(id,text,description,category,priority,date){
     tasks[taskIndex].category=category
     tasks[taskIndex].priority=priority
     tasks[taskIndex].date=date
+    tasks[taskIndex].time=timeStart
+    tasks[taskIndex].time=timeEnd
     saveTasks()  
 }
 
@@ -427,4 +431,5 @@ document.getElementById("nextMonth").addEventListener("click", () => {
     currentDate.setMonth(currentDate.getMonth() + 1)
     renderCalendar(currentDate.getMonth(), currentDate.getFullYear())
 })
+
 
