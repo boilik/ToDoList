@@ -1,12 +1,12 @@
 let tasks=JSON.parse(localStorage.getItem("tasks"))||[]
 
-function addTask(text,description,category,priority){
-    let task=createTask(text,description,category,priority)
+function addTask(text,description,category,priority,date){
+    let task=createTask(text,description,category,priority,date)
     tasks.push(task)
     saveTasks()  
 }
 
-function createTask(text,description,category,priority){
+function createTask(text,description,category,priority,date){
     let task={
         id:Date.now(),
         text,
@@ -14,6 +14,7 @@ function createTask(text,description,category,priority){
         category,
         done:false,
         priority,
+        date,
     }
     return task
 }
@@ -44,6 +45,8 @@ function getFilteredTasks(type) {
     }
 }
 
+
+const inputDate = document.getElementById("inputDate")
 function loadTaskToTaskPanel(taskId){
     addTaskPanel.classList.toggle("active")
     const taskIndex=tasks.findIndex(item=>item.id==taskId)
@@ -62,6 +65,7 @@ function loadTaskToTaskPanel(taskId){
     let priorityValue=task['priority']?'high':'low'
     let priorityButton=priority.querySelector(`#${priorityValue}`)
     priorityButton.checked=true
+    inputDate.value=task['date']
 }
 
 const list = document.getElementById("list");
@@ -281,29 +285,31 @@ function handleAddTask(edit){
 
     let prioritySelected =priority.querySelector('input:checked')
     let priorityValue= prioritySelected.id=='high'?true:false
+    let date=inputDate.value
 
     if (!inputText) return;
 
     if (editid){
-        editTask(editid,inputText,descriptionText,selectedCategoryName,priorityValue)
+        editTask(editid,inputText,descriptionText,selectedCategoryName,priorityValue,date)
         saveTasks()
         render()
         return
     }
 
-    addTask(inputText,descriptionText,selectedCategoryName,priorityValue);
+    addTask(inputText,descriptionText,selectedCategoryName,priorityValue,date);
     input.value = "";
     render();    
 }
 
 
-function editTask(id,text,description,category,priority){
+function editTask(id,text,description,category,priority,date){
     const taskIndex=tasks.findIndex(item=>item.id===id)
     if (taskIndex==-1) return;
     tasks[taskIndex].text=text
     tasks[taskIndex].description=description
     tasks[taskIndex].category=category
     tasks[taskIndex].priority=priority
+    tasks[taskIndex].date=date
     saveTasks()  
 }
 
