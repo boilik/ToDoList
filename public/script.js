@@ -44,19 +44,25 @@ function getFilteredTasks(type) {
     }
 }
 
-function editTask(taskId){
+function loadTaskToTaskPanel(taskId){
     addTaskPanel.classList.toggle("active")
     const taskIndex=tasks.findIndex(item=>item.id==taskId)
     if (taskIndex==-1) return;
-    tasks[taskIndex].text=newTextValue
-    saveTasks()   
+    let task=tasks[taskIndex]
+    let category=task['category']
     
+    let categoryButton = categoryButtonsDiv.querySelector(`#${category}`)   
+    categoryButton.classList.add('active')
+
+    input.value=task['text']
+    inputDescription.value=task['description']
+
+    let priorityValue=task['priority']?'high':'low'
+    let priorityButton=priority.querySelector(`#${priorityValue}`)
+    priorityButton.checked=true
 }
 
 const list = document.getElementById("list");
-
-а
-
 list.addEventListener("click",(event) =>{
     let li=event.target.closest("li")
     let button = event.target.closest("button")
@@ -69,6 +75,8 @@ list.addEventListener("click",(event) =>{
         render()
         return
     }
+
+    loadTaskToTaskPanel(taskId)
 
 
 
