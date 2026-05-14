@@ -50,7 +50,9 @@ function loadTaskToTaskPanel(taskId){
     if (taskIndex==-1) return;
     let task=tasks[taskIndex]
     let category=task['category']
-    
+    editid=task['id']
+
+
     let categoryButton = categoryButtonsDiv.querySelector(`#${category}`)   
     categoryButton.classList.add('active')
 
@@ -267,10 +269,11 @@ priority.addEventListener('click',(event)=>{
 })
 
 
+let editid=false
 
 
-
-function handleAddTask(){
+function handleAddTask(edit){
+    edit||=false
     let inputText = input.value;
     let descriptionText=inputDescription.value
     let selectedCategory=categoryButtonsDiv.querySelector('.active')
@@ -281,9 +284,27 @@ function handleAddTask(){
 
     if (!inputText) return;
 
+    if (editid){
+        editTask(editid,inputText,descriptionText,selectedCategoryName,priorityValue)
+        saveTasks()
+        render()
+        return
+    }
+
     addTask(inputText,descriptionText,selectedCategoryName,priorityValue);
     input.value = "";
     render();    
+}
+
+
+function editTask(id,text,description,category,priority){
+    const taskIndex=tasks.findIndex(item=>item.id===id)
+    if (taskIndex==-1) return;
+    tasks[taskIndex].text=text
+    tasks[taskIndex].description=description
+    tasks[taskIndex].category=category
+    tasks[taskIndex].priority=priority
+    saveTasks()  
 }
 
 
