@@ -1,15 +1,17 @@
 let tasks=JSON.parse(localStorage.getItem("tasks"))||[]
 
-function addTask(text){
-    let task=createTask(text)
+function addTask(text,description,category){
+    let task=createTask(text,description,category)
     tasks.push(task)
     saveTasks()  
 }
 
-function createTask(text){
+function createTask(text,description,category){
     let task={
         id:Date.now(),
         text,
+        description,
+        category,
         done:false,
         priority:false,
     }
@@ -134,10 +136,13 @@ function render() {
         const star= document.createElement("span")
         star.textContent = task.priority ? "★" : "☆"
         star.classList.add("star")
+
+        const radio=document.createElement("input")
+        radio.type="radio"
         
 
         if (task.done) {
-            li.style.textDecoration = "line-through"
+            radio.checked="true"
         }
 
         if (task.id === editMode) {
@@ -176,6 +181,7 @@ function render() {
         li.appendChild(btn)
         li.appendChild(star)
         list.appendChild(li)
+        li.appendChild(radio)
     });
     let done = 0
     tasks.forEach(t => { if (t.done) done++ })
@@ -189,6 +195,18 @@ function render() {
 
     updateInformationBlock(total,done,todo)
 }
+
+const categoryButtonsDiv=document.getElementById('category')
+categoryButtonsDiv.addEventListener('click',(event)=>{
+    const categoryButtonSelected=event.target.closest('button')
+    const allCategoryButtons=categoryButtonsDiv.querySelectorAll('button')
+    allCategoryButtons.forEach(button=>{
+        button.classList.remove('active')
+    })
+    categoryButtonSelected.classList.add('active')
+})
+
+
 function updateInformationBlock(total,done,todo){
     const allTasks=document.getElementById("numberAllTasks")
     allTasks.textContent=total
@@ -210,8 +228,10 @@ function getDate(){
 
 }
 
-const input = document.getElementById('input');
+const input = document.getElementById('inputName');
 const but = document.getElementById('addBtn');
+const inputDescription=document.getElementById('inputDescription')
+
 
 but.addEventListener("click", handleAddTask);
 
@@ -223,10 +243,13 @@ input.addEventListener("keydown", (event) => {
 
 function handleAddTask(){
     let inputText = input.value;
+    let descriptionText=inputDescription.value
+    let selectedCategory=categoryButtonsDiv.querySelector('.active')
+    let selectedCategoryName=selectedCategory.id
 
     if (!inputText) return;
 
-    addTask(inputText);
+    addTask(inputText,descriptionText,selectedCategoryName);
     input.value = "";
     render();    
 }

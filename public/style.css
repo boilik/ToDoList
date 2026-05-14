@@ -292,6 +292,10 @@ button {
     color: #ffffff;
 }
 
+#category button.active{
+    background-color: #6aa9fe;
+}
+
 #addTaskPanel input[type='radio']{
     height: 1vh;
 }
