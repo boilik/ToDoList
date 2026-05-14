@@ -1,4 +1,5 @@
-<div class="main">
+<div class="main" >
+    <div id="main">
     <div class="date">
         <h1>Today</h1>
         <p id="date"></p>
@@ -33,5 +34,29 @@
 </div>
 <ul id="list"></ul>
 <div id="score" ></div>
+</div>
+
+<div id="addTaskPanel">
+    <legend>Task name</legend>
+    <input id="inputName">
+    <legend>Description</legend>
+    <input id="inputDescription">
+        <div id="category">
+            <legend>Category</legend>
+                <button id="work">Work</button>
+                <button id="study">Study</button>
+                <button id="own">Own</button>
+                <button id="health">Health</button>
+                <button id="other">Other</button>
+        </div>
+        <div class="priority">
+            <legend>Priority</legend>
+            <input id="high" type="radio">
+            <label for="high">High</label>
+            <input id="low" type="radio" name="Low">
+            <label for="low">Low</label>
+        </div>
+    <button id="newAddBtn">Add</button>
+</div>
 
 </div>

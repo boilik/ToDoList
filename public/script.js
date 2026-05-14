@@ -280,3 +280,12 @@ function saveTasks(){
     localStorage.setItem("tasks",JSON.stringify(tasks))
 }
 
+const newTaskBtn=document.getElementById("newTask")
+const addTaskPanel=document.getElementById("addTaskPanel")
+newTaskBtn.addEventListener('click',()=>{
+    addTaskPanel.classList.toggle("active")
+    const main=document.getElementById("main")
+    main.classList.toggle("shift")
+})
+
+console.log(newTaskBtn)
