@@ -1,19 +1,19 @@
 let tasks=JSON.parse(localStorage.getItem("tasks"))||[]
 
-function addTask(text,description,category){
-    let task=createTask(text,description,category)
+function addTask(text,description,category,priority){
+    let task=createTask(text,description,category,priority)
     tasks.push(task)
     saveTasks()  
 }
 
-function createTask(text,description,category){
+function createTask(text,description,category,priority){
     let task={
         id:Date.now(),
         text,
         description,
         category,
         done:false,
-        priority:false,
+        priority,
     }
     return task
 }
@@ -44,7 +44,8 @@ function getFilteredTasks(type) {
     }
 }
 
-function editTask(newTextValue,taskId){
+function editTask(taskId){
+    addTaskPanel.classList.toggle("active")
     const taskIndex=tasks.findIndex(item=>item.id==taskId)
     if (taskIndex==-1) return;
     tasks[taskIndex].text=newTextValue
@@ -53,6 +54,8 @@ function editTask(newTextValue,taskId){
 }
 
 const list = document.getElementById("list");
+
+а
 
 list.addEventListener("click",(event) =>{
     let li=event.target.closest("li")
@@ -66,6 +69,9 @@ list.addEventListener("click",(event) =>{
         render()
         return
     }
+
+
+
     if (event.target.classList.contains("star")) {
         togglePriority(taskId)
         render()
@@ -207,6 +213,8 @@ categoryButtonsDiv.addEventListener('click',(event)=>{
 })
 
 
+
+
 function updateInformationBlock(total,done,todo){
     const allTasks=document.getElementById("numberAllTasks")
     allTasks.textContent=total
@@ -232,7 +240,6 @@ const input = document.getElementById('inputName');
 const but = document.getElementById('addBtn');
 const inputDescription=document.getElementById('inputDescription')
 
-
 but.addEventListener("click", handleAddTask);
 
 input.addEventListener("keydown", (event) => {
@@ -241,15 +248,32 @@ input.addEventListener("keydown", (event) => {
     }       
 })
 
+const priority =document.querySelector('.priority')
+priority.addEventListener('click',(event)=>{
+    const prioritySelected=event.target.closest('input')
+    const priorityButtons=priority.querySelectorAll('input')
+    priorityButtons.forEach(button=>{
+        button.checked=false
+    })
+    prioritySelected.checked=true
+})
+
+
+
+
+
 function handleAddTask(){
     let inputText = input.value;
     let descriptionText=inputDescription.value
     let selectedCategory=categoryButtonsDiv.querySelector('.active')
     let selectedCategoryName=selectedCategory.id
 
+    let prioritySelected =priority.querySelector('input:checked')
+    let priorityValue= prioritySelected.id=='high'?true:false
+
     if (!inputText) return;
 
-    addTask(inputText,descriptionText,selectedCategoryName);
+    addTask(inputText,descriptionText,selectedCategoryName,priorityValue);
     input.value = "";
     render();    
 }
@@ -304,11 +328,11 @@ function saveTasks(){
 }
 
 const newTaskBtn=document.getElementById("newTask")
+
+
 const addTaskPanel=document.getElementById("addTaskPanel")
 newTaskBtn.addEventListener('click',()=>{
     addTaskPanel.classList.toggle("active")
     const main=document.getElementById("main")
     main.classList.toggle("shift")
 })
-
-console.log(newTaskBtn)

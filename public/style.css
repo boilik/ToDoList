@@ -298,4 +298,12 @@ button {
 
 #addTaskPanel input[type='radio']{
     height: 1vh;
+    padding: 10px; cursor: pointer; border: 1px solid #ccc;
 }
+
+#addTaskPanel input[type='radio'].active{
+    height: 1vh;
+    background-color: #007bff; 
+    color: white;
+}
+
