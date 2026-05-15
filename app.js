@@ -15,8 +15,11 @@ app.engine("hbs",expressHbs.engine({
 app.use(express.static(__dirname + '/public'));
 app.set('view engine','hbs')
 
-app.use("/",function(req,resp){
+app.get("/",function(req,resp){
     resp.render("main")
+})
+app.get("/calendar",function(req,resp){
+    resp.render("calendar")
 })
 
 

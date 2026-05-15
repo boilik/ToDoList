@@ -120,7 +120,6 @@ button {
     font-size: 14px;
     border: none;
     border-radius: 4px;
-    color: white;
     cursor: pointer;
 }
 
@@ -307,3 +306,83 @@ button {
     color: white;
 }
 
+#calendar {
+    width: 320px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+}
+
+#calendarGuts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#calendarHeader button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#monthYear {
+    font-weight: bold;
+}
+
+#calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.tasksByPeriod{
+    display: flex;
+    flex-direction: row;
+}
+
+#calendarHeader{
+    display: flex;
+    flex-direction: row;
+}
+#calendarGrid div {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#calendarGrid div:hover {
+    background:#4c63af;
+}
+
+.today {
+    background:#6aa9fe;
+    color: white;
+    font-weight: bold;
+}
+.tasksByPeriod button {
+    background: transparent;
+    color: #8d93a2;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.tasksByPeriod button.selectedPeriod {
+    color: #5487ff;
+    background: rgba(84, 135, 255, 0.15);
+}
+
+#prevMonth,
+#nextMonth {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
