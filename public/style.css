@@ -1,37 +1,19 @@
+/* ===== BASE ===== */
 body {
     margin: 0;
     padding: 0;
-    text-align: center;
     font-family: "Manrope", sans-serif;
     color: #ffffff;
-    background-image:url(/img/bg1.png) ;
+    background-image: url(/img/bg1.png);
     background-attachment: fixed;
+    text-align: center;
 }
 
-
-.controls {
-    display: flex;
-    flex-direction:row ;
-    align-items: center;
-    justify-content: center;
-    font-family: "Nunito", sans-serif;
-}
-
-.filters{
-    display: flex;
-    flex-direction: row;
-    margin-left: 8%;
-}
-
-span.starred{
-    color: gold;
-}
-
-
-span{
-    font-size: 18px;
+button {
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    padding: 0px 10px;
+    transition: 0.2s;
 }
 
 input {
@@ -39,66 +21,139 @@ input {
     padding: 10px;
     font-size: 16px;
     border: none;
-    border-radius: 4px;
-    margin-right: 10px;
-    flex:1;
-    max-width: 50%;
+    border-radius: 6px;
+    background-color: #0a0d1a;
+    color: #8d93a2;
 }
 
-#addBtn {
+/* ===== LAYOUT ===== */
+.app {
+    display: grid;
+    grid-template-columns: 1.5fr 7fr;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-right: 1px solid #1b1c2b;
+    color: #979ba1;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.logo {
+    width: 70%;
+}
+
+.name {
+    background: linear-gradient(90deg, #6aa9fe, #776ffd, #b049fd, #f159fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#motivation {
+    text-align: left;
+    margin: 10%;
+}
+
+#newTask {
+    width: 80%;
+    padding: 10px;
+    background: linear-gradient(to right, #6aa9fe, #776ffd, #b049fd, #f159fa);
+    border-radius: 10px;
+}
+
+/* ===== NAV LINKS ===== */
+.links {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.links li {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #00000b;
+}
+
+.links a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #979ba1;
+}
+
+.links a:hover {
+    color: #f159fa;
+}
+
+/* ===== MAIN ===== */
+.date {
+    text-align: left;
+    margin-left: 8%;
+}
+
+#date {
+    color: #9c9aa7;
+}
+
+/* ===== INFO BLOCKS ===== */
+#informationBlock {
+    display: flex;
+    justify-content: space-evenly;
+    height: 17vh;
+}
+
+.informationBlock {
+    width: 20%;
+    border-radius: 15px;
+}
+
+#allTasks { background: rgba(221, 4, 167, 0.2); }
+#finishedTasks { background: rgba(35, 230, 197, 0.2); }
+#processTasks { background: rgba(110, 3, 197, 0.2); }
+
+#allTasks p { color: #ec8bf1; }
+#finishedTasks p { color: #6af9fe; }
+#processTasks p { color: #b7b4ff; }
+
+.informationBlock div {
+    font-size: 30px;
+    text-align: left;
+    padding-left: 90px;
+}
+
+/* ===== FILTERS ===== */
+.filters {
+    display: flex;
+    margin-left: 8%;
+    gap: 10px;
+}
+
+.filters button {
     padding: 10px 20px;
     font-size: 16px;
-    border-radius: 25px;
-    background-color:transparent;
+    background: transparent;
     color: white;
-    cursor: pointer;
 }
-#allBtn.active, 
-#doneBtn.active, 
-#todoBtn.active{
+
+.filters button:hover {
+    transform: scale(1.1);
+    background-color: #776ffd;
+}
+
+#allBtn.active,
+#doneBtn.active,
+#todoBtn.active {
     background-color: #a65daa;
 }
 
-ul li:hover {
-    transform: scale(1.05);
-}
-#addBtn:hover, #allBtn:hover, #doneBtn:hover, #todoBtn:hover {
-    transform: scale(1.2);
-    background-color:#776ffd;
-    padding: 10px 20px;
-    font-size: 16px;
-
-    cursor: pointer;
-}
-.filters button{
-    padding: 10px 20px;
-    font-size: 17px;
-    border-radius: 19px;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-}
-
-button.delete-btn:hover {
-    background-color: #000000;
-
-}
-
-button.delete-btn {
-    margin-left: auto; 
-    background-color:#776ffd;
-}
-
-
-.filters {
-    margin-top: 10px;
-}
-
+/* ===== TASK LIST ===== */
 #list {
     margin-top: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 li {
@@ -106,229 +161,75 @@ li {
     align-items: center;
     justify-content: space-between;
     width: 50%;
-    margin: 0px auto;
+    margin: 10px auto;
     padding: 10px;
-    margin-bottom: 10px;
-    background-color: rgb(16, 18, 44, 0.8);
-    border-radius: 4px;
-    height:5vh;
+    background: rgba(16, 18, 44, 0.8);
+    border-radius: 6px;
 }
 
-button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
+li:hover {
+    transform: scale(1.03);
+}
+
+button.delete-btn {
+    background-color: #776ffd;
+}
+
+button.delete-btn:hover {
+    background-color: #000;
+}
+
+/* ===== STAR ===== */
+span {
+    font-size: 18px;
     cursor: pointer;
 }
 
-.app{
-    display: grid;
-    grid-template-columns: 1.5fr 7fr;
-    
+span.starred {
+    color: gold;
 }
 
-.logo{
-    width: 70%;
-    height: auto;
-}
-
-.name{
-  background: linear-gradient(90deg, #6aa9fe, #776ffd, #b049fd, #f159fa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.sidebar{
-    background-color: rgba(0, 0, 0, 0.7);
-    display:block;
-    overflow-y: none;
-    min-width: 100%;
-    border-right: 0.5px solid #1b1c2b;
-    color: #979ba1;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    position: sticky;
-    top: 0;
-}
-
-#motivation{
-    text-align: left;
-    margin: 10%;
-}
-#newTask{
-    min-width: 80%;
-    min-height: 4%;
-    background: linear-gradient(to right,  #6aa9fe, #776ffd, #b049fd, #f159fa);
-    border-radius: 10px;
-}
-
-.links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.links li {
-    width: 80%;
-    text-align: center;
-    background-color: #00000b;
-    padding: 0%;
-}
-.links a {
-    display: block;
-    width: 100%;
-    padding: 10px 0px;
-    text-decoration: none;
-    color: #979ba1;
-    border-radius: 6px;
-    transition: 0.2s;
-}
-
-.links a:hover{
-    color: #f159fa;
-}
-
-#informationBlock  {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    height: 17vh;
-}
-
-.informationBlock{
-    width: 20%;
-    border-radius: 15px;
-}
-
-#allTasks{
-    background-color: rgba(221, 4, 167, 0.2);
-}
-#finishedTasks{
-    background-color: rgba(35, 230, 197, 0.2);
-}
-#processTasks{
-    background-color: rgba(110, 3, 197, 0.2);
-}
-
-#allTasks p{
-    color: #ec8bf1;
-}
-
-#finishedTasks p{
-    color:#6af9fe
-}
-
-#processTasks p{
-    color: #b7b4ff;
-}
-.date{
-    text-align: left;
-    margin-left: 8%;
-}
-
-.informationBlock div{
-    font-size: 30px;
-    text-align: left;
-    padding-left: 90px;
-    
-}
-
-.informationBlock p{
-    margin-top: 0px;
-    padding-top: 0px;
-}
-
-#date{
-    color: #9c9aa7;
-}
-
-
+/* ===== ADD TASK PANEL ===== */
 #addTaskPanel {
     position: fixed;
     top: 0;
     right: 0;
-
-
+    width: 500px;
     height: 100vh;
-
     background: #050712;
-
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-
-    padding: 20px;
-
     transform: translateX(100%);
     transition: transform 0.35s ease;
-
-    z-index: 1000;
-    width: 500px;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
-    justify-content: flex-start;
 }
 
 #addTaskPanel.active {
     transform: translateX(0);
 }
 
-#addTaskPanel input{
-    background-color: #0a0d1a;
-    color:#8d93a2;
-    border: 1px solid #1b1c2b ;
-    border-radius: 6px;
-    height: 20vh;
-    
-
-}
-
-#category button{
+/* ===== CATEGORY ===== */
+#category button {
     background-color: #ea328e;
-    color: #ffffff;
 }
 
-#category button.active{
+#category button.active {
     background-color: #6aa9fe;
 }
 
-#addTaskPanel input[type='radio']{
-    height: 1vh;
-    padding: 10px; cursor: pointer; border: 1px solid #ccc;
-}
-
-#addTaskPanel input[type='radio'].active{
-    height: 1vh;
-    background-color: #007bff; 
-    color: white;
-}
-
+/* ===== CALENDAR ===== */
 #calendar {
     width: 320px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #1b1c2b;
     border-radius: 10px;
-    font-family: Arial, sans-serif;
 }
 
-#calendarGuts {
+#calendarHeader {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-}
-
-#calendarHeader button {
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-#monthYear {
-    font-weight: bold;
 }
 
 #calendarGrid {
@@ -337,52 +238,35 @@ button {
     gap: 5px;
 }
 
-.tasksByPeriod{
-    display: flex;
-    flex-direction: row;
-}
-
-#calendarHeader{
-    display: flex;
-    flex-direction: row;
-}
 #calendarGrid div {
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 60px;
-    cursor: pointer;
-    transition: 0.2s;
+    border-radius: 50%;
 }
 
 #calendarGrid div:hover {
-    background:#4c63af;
+    background: #4c63af;
 }
 
 .today {
-    background:#6aa9fe;
-    color: white;
+    background: #6aa9fe;
     font-weight: bold;
 }
+
+/* ===== PERIOD FILTER ===== */
+.tasksByPeriod {
+    display: flex;
+    gap: 5px;
+}
+
 .tasksByPeriod button {
     background: transparent;
     color: #8d93a2;
-    border: none;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 6px;
 }
 
 .tasksByPeriod button.selectedPeriod {
     color: #5487ff;
     background: rgba(84, 135, 255, 0.15);
-}
-
-#prevMonth,
-#nextMonth {
-    background: transparent;
-    border: none;
-    cursor: pointer;
 }

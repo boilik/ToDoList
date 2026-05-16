@@ -1,4 +1,8 @@
 let currentDate = new Date()
+let tasks=JSON.parse(localStorage.getItem("tasks"))||[]
+
+let currentPeriod='month'
+
 function renderCalendar() {
     const grid = document.getElementById("calendarGrid")
     const title = document.getElementById("monthYear")
@@ -37,10 +41,6 @@ function renderCalendar() {
             cell.classList.add("today")
         }
 
-        cell.addEventListener("click", () => {
-            inputDate.value = `${year}.${month + 1}.${day}`
-        })
-
         grid.appendChild(cell)
     }
 
@@ -63,8 +63,11 @@ document.getElementById("nextMonth").addEventListener("click", () => {
     renderCalendar(currentDate.getMonth(), currentDate.getFullYear())
 })
 
+
+
 function render(){
     renderCalendar()
+    getTasksByPeriod(currentPeriod)
 }
 
 render()
@@ -72,7 +75,7 @@ render()
 
 
 const tasksByPeriod = document.querySelector(".tasksByPeriod");
-let currentPeriod='month'
+
 
 tasksByPeriod.addEventListener("click", (event) => {
     const periodBtn = event.target.closest("button");
@@ -88,7 +91,7 @@ tasksByPeriod.addEventListener("click", (event) => {
 
 });
 
-let tasks=JSON.parse(localStorage.getItem("tasks"))||[]
+
 
 function getTasksByPeriod(currentPeriod){
     let [date,month,year]=dateToday()

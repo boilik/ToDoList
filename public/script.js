@@ -274,8 +274,9 @@ priority.addEventListener('click',(event)=>{
 
 
 let editid=false
-const timeStart = document.getElementById('timeStart')
-const timeEnd = document.getElementById('timeEnd')
+
+const timeStartInput = document.getElementById('timeStart')
+const timeEndInput = document.getElementById('timeEnd')
 
 function handleAddTask(edit){
     edit||=false
@@ -287,14 +288,19 @@ function handleAddTask(edit){
     let prioritySelected =priority.querySelector('input:checked')
     let priorityValue= prioritySelected.id=='high'?true:false
     let date=inputDate.value
-    let timeStart=timeStart.value
+    
+    let timeStart = timeStartInput.value
+    let timeEnd = timeEndInput.value
 
     if (!inputText) return;
+    if (!selectedCategory) return
+    if (!prioritySelected) return;
 
     if (editid){
         editTask(editid,inputText,descriptionText,selectedCategoryName,priorityValue,date,timeStart,timeEnd)
         saveTasks()
         render()
+        editid = false
         return
     }
 
@@ -312,8 +318,8 @@ function editTask(id,text,description,category,priority,date,timeStart,timeEnd){
     tasks[taskIndex].category=category
     tasks[taskIndex].priority=priority
     tasks[taskIndex].date=date
-    tasks[taskIndex].time=timeStart
-    tasks[taskIndex].time=timeEnd
+    tasks[taskIndex].timeStart=timeStart
+    tasks[taskIndex].timeEnd=timeEnd
     saveTasks()  
 }
 
