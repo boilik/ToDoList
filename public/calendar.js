@@ -98,6 +98,37 @@ function getTasksByPeriod(currentPeriod){
 }
 
 
+function showTasksByPeriod(tasksToShow){
+    const list = document.getElementById("listFiltered");
+    list.innerHTML = "";
+
+    tasksToShow.forEach((task) => {
+        const li = document.createElement("li");
+        li.dataset.id = task.id
+        li.textContent = task.text
+
+        const btn = document.createElement("button")
+        btn.textContent = "Delete";
+        btn.classList.add("delete-btn")
+
+        const star= document.createElement("span")
+        star.textContent = task.priority ? "★" : "☆"
+        star.classList.add("star")
+
+        const radio=document.createElement("input")
+        radio.type="radio"
+
+        if (task.done) {
+            radio.checked=true
+        }
+
+        li.appendChild(btn)
+        li.appendChild(star)
+        list.appendChild(li)
+        li.appendChild(radio)
+    })};
+
+
 
 function dateToday(){
     const today=new Date()
