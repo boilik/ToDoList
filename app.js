@@ -22,6 +22,9 @@ app.get("/calendar",function(req,resp){
     resp.render("calendar")
 })
 
+app.get("/statistics",function(req,resp){
+    resp.render("statistics")
+})
 
 
 app.listen(port, () => {
