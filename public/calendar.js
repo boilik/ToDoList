@@ -25,7 +25,6 @@ function renderCalendar() {
         
     }
 
-
     for (let day = 1; day <= daysInMonth; day++) {
         const cell = document.createElement("div")
         cell.textContent = day
@@ -45,8 +44,7 @@ function renderCalendar() {
         grid.appendChild(cell)
     }
 
-
-        let daysToAdd=6-lastDayIndex
+    let daysToAdd=6-lastDayIndex
     for (let i=1;i<=daysToAdd;i++){
         const cell=document.createElement('div')
         cell.textContent=i
@@ -66,14 +64,15 @@ document.getElementById("nextMonth").addEventListener("click", () => {
 })
 
 function render(){
-
     renderCalendar()
 }
+
 render()
 
 
 
 const tasksByPeriod = document.querySelector(".tasksByPeriod");
+let currentPeriod='month'
 
 tasksByPeriod.addEventListener("click", (event) => {
     const periodBtn = event.target.closest("button");
@@ -84,86 +83,60 @@ tasksByPeriod.addEventListener("click", (event) => {
     });
 
     periodBtn.classList.add("selectedPeriod");
-    let currentPeriod=periodBtn.id
-///    showTasksByPeriod(currentPeriod)
+    currentPeriod=periodBtn.id
+    getTasksByPeriod(currentPeriod)
 
 });
 
-// let tasks=JSON.parse(localStorage.getItem("tasks"))||[]
+let tasks=JSON.parse(localStorage.getItem("tasks"))||[]
 
-// function dateToday(){
-//     const today=new Date()
-//     const date=today.getDate()
-//     const month=today.getMonth()+1
-//     const year=today.getMonth()
-//     return date,month,year
-// }
+function getTasksByPeriod(currentPeriod){
+    let [date,month,year]=dateToday()
+    let tasksToShow = addTaskByPeriod(date,month,year,currentPeriod)
+    showTasksByPeriod(tasksToShow)
 
-// function addTaskByPeriod(date,month,year,currentPeriod){
-//     let tasksToShow=[]
-//     tasks.forEach(task=>{
-//         let [taskYear,taskMonth, taskDay]=task['date'].spit('.')
-//         switch (currentPeriod){
-//             case "month":
-//                 if (taskMonth==month&&taskYear==year) tasksToShow.push(task)
-//                 break;
-//             case "day":
-//                 if (taskDay==date&&taskMonth==month&&taskYear==year) tasksToShow.push(task)
-//                 break;
-//             case "week":
-//                 if ((taskMonth==month||taskMonth==month+1)&&taskYear==year) {
-//                 let dayOfWeek=new Date(year,month,day)
-//                 if (dayOfWeek!=0){
-//                     let daysAfter=7-dayOfWeek
-//                     let daysBefore=dayOfWeek-1
-//                 }else{
-//                     let daysBefore=6     
-//                     let daysAfter=0             
-//                 }
-//                 const daysInMonth = new Date(year, month + 1, 0).getDate()
-//                 let {dates,datesNextMonth}=getDatesFromWeekDay(daysBefore,daysAfter,date,daysInMonth)
-                
-//                 dates.forEach(date=>{
-//                     if ()
-//                 })
-//             }
+}
 
-//         }
-//     })
 
-//     return dates,datesNextMonth
 
-// }
+function dateToday(){
+    const today=new Date()
+    const date=today.getDate()
+    const month=today.getMonth()+1
+    const year=today.getFullYear()
+    return [date,month,year]
+}
 
-// function getDatesFromWeekDay(daysBefore,daysAfter,date,daysInMonth){
-//     let dates=[]
-//     let datesNextMonth=[]
-//     if (date+daysAfter>daysInMonth){
-//         let daysInNextMonth=date+daysAfter-daysInMonth
-//         if (daysInNextMonth<7){
-//             for (let i=7-daysInNextMonth;i==0;i--){
-//                 dates.push(date)
-//                 date--
-//             }
-//             for(let i=daysInNextMonth;i==0;i--){
-//                 datesNextMonth.push(i)
-//             }
-//         }
-//     }
-//     if (daysAfter){
-//         for(let i=date-daysBefore; i<=date+daysAfter;i++){
-//             dates.push(i)
-//         }
-//     }else{
-//         for(let i=date; i>daysBefore;i--){
-//             dates.push(i)
-//         }
-//     }
+function addTaskByPeriod(date,month,year,currentPeriod){
+    let tasksToShow=[]
+    tasks.forEach(task=>{
+        let [taskYear,taskMonth, taskDay]=task.date.split('.').map(Number)
 
-//     return dates,datesNextMonth
-// }
-// function showTasksByPeriod(currentPeriod){
-//     let [date,month,year]=dateToday()
-//     let {dates,datesNextMonth} = addTaskByPeriod(date,month,year,currentPeriod)
+        switch (currentPeriod){
+            case "month":
+                if (taskMonth==month&&taskYear==year) tasksToShow.push(task)
+                break;
+            case "day":
+                if (taskDay==date&&taskMonth==month&&taskYear==year) tasksToShow.push(task)
+                break;
+            case "week":
+                const current = new Date(year, month - 1, date)
+                const day = current.getDay() === 0 ? 7 : current.getDay()
 
-// }
+                const startOfWeek = new Date(current)
+                startOfWeek.setDate(current.getDate() - (day - 1))
+
+                const endOfWeek = new Date(startOfWeek)
+                endOfWeek.setDate(startOfWeek.getDate() + 6)
+
+                const taskDate = new Date(taskYear, taskMonth - 1, taskDay)
+
+                if (taskDate >= startOfWeek && taskDate <= endOfWeek) {
+                    tasksToShow.push(task)
+                }
+                break;
+        }
+    })
+    return tasksToShow
+}
+
