@@ -6,7 +6,7 @@ function addTask(text,description,category,priority,date,timeStart,timeEnd){
     saveTasks()  
 }
 
-function createTask(text,description,category,priority,date){
+function createTask(text,description,category,priority,date,timeStart,timeEnd){
     let task={
         id:Date.now(),
         text,
@@ -15,6 +15,7 @@ function createTask(text,description,category,priority,date){
         done:false,
         priority,
         date,
+        expired: false 
     }
     return task
 }
