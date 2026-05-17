@@ -15,6 +15,8 @@ function createTask(text,description,category,priority,date,timeStart,timeEnd){
         done:false,
         priority,
         date,
+        timeStart,
+        timeEnd,
         expired: false 
     }
     return task
@@ -160,7 +162,14 @@ function render() {
 
         const radio=document.createElement("input")
         radio.type="radio"
-        
+
+        const time= document.createElement("span")
+        let timeText = ""
+        if (task.timeStart && task.timeEnd) {
+            timeText = ` (${task.timeStart} - ${task.timeEnd})`
+        }
+        time.textContent = timeText
+
 
         if (task.done) {
             radio.checked="true"
@@ -193,6 +202,9 @@ function render() {
 
         } else {
             const span = document.createElement("span")
+
+            
+
             span.textContent = task.text
             li.appendChild(span)
         }
@@ -203,6 +215,8 @@ function render() {
         li.appendChild(star)
         list.appendChild(li)
         li.appendChild(radio)
+        li.appendChild(time)
+
     });
     let done = 0
     tasks.forEach(t => { if (t.done) done++ })
@@ -278,6 +292,32 @@ let editid=false
 
 const timeStartInput = document.getElementById('timeStart')
 const timeEndInput = document.getElementById('timeEnd')
+timeStartInput.pattern = "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+timeStartInput.placeholder = "HH:MM"
+timeEndInput.pattern = "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+timeEndInput.placeholder = "HH:MM"
+
+
+
+timeStartInput.addEventListener('input', (e) => {
+    let value = e.target.value
+
+    if (value.length >3) {
+        value = value.slice(0,2) + ':' + value.slice(2,4)
+    }
+
+    e.target.value = value
+})
+
+timeEndInput.addEventListener('input', (e) => {
+    let value = e.target.value
+
+    if (value.length >3) {
+        value = value.slice(0,2) + ':' + value.slice(2,4)
+    }
+
+    e.target.value = value
+})
 
 function handleAddTask(edit){
     edit||=false
