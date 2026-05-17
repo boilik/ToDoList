@@ -101,3 +101,23 @@ new Chart (line,{
     type:'line',
     data: dataline,
 })
+
+render()
+
+function render(){
+    let done = 0
+    tasks.forEach(t => { if (t.done) done++ })
+        
+    let total =tasks.length
+    let todo=tasks.length-done
+
+    updateInformationBlock(total,done,todo)
+}
+function updateInformationBlock(total,done,todo){
+    const allTasks=document.getElementById("numberAllTasks")
+    allTasks.textContent=total
+    const finishedTasks=document.getElementById("numberfinishedTasks")
+    finishedTasks.textContent=done
+    const processTasks=document.getElementById("numberProcessTasks")
+    processTasks.textContent=todo
+}
