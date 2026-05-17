@@ -170,6 +170,9 @@ function render() {
         }
         time.textContent = timeText
 
+        task.expired=checkTaskIfExpired(task)
+        if (task.expired) time.classList.add('expired')
+
 
         if (task.done) {
             radio.checked="true"
@@ -230,6 +233,23 @@ function render() {
 
     updateInformationBlock(total,done,todo)
 }
+
+
+function checkTaskIfExpired(task) {
+    if (task.done) return false
+
+    if (!task.date || !task.timeEnd) return false
+
+    const [year, month, day] = task.date.split('.').map(Number)
+    const [hours, minutes] = task.timeEnd.split(':').map(Number)
+
+    const taskEndTime = new Date(year, month - 1, day, hours, minutes).getTime()
+
+    const now = Date.now()
+
+    return taskEndTime < now
+}
+
 
 const categoryButtonsDiv=document.getElementById('category')
 categoryButtonsDiv.addEventListener('click',(event)=>{
