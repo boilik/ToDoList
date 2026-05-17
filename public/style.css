@@ -113,10 +113,12 @@ input {
 #allTasks { background: rgba(221, 4, 167, 0.2); }
 #finishedTasks { background: rgba(35, 230, 197, 0.2); }
 #processTasks { background: rgba(110, 3, 197, 0.2); }
+#expiredTasks { background: rgba(226, 7, 7, 0.2); }
 
 #allTasks p { color: #ec8bf1; }
 #finishedTasks p { color: #6af9fe; }
 #processTasks p { color: #b7b4ff; }
+#expiredTasks p { color: #d36e6e; }
 
 .informationBlock div {
     font-size: 30px;

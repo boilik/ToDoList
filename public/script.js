@@ -224,6 +224,9 @@ function render() {
     let done = 0
     tasks.forEach(t => { if (t.done) done++ })
 
+    let expired=0
+    tasks.forEach(t => { if (t.done) expired++ })
+
     let total =tasks.length
     let todo=tasks.length-done
     score.textContent = `Total: ${total}, Done: ${done}, Todo: ${todo}`
@@ -231,7 +234,7 @@ function render() {
     const dateToday=document.getElementById("date")
     dateToday.textContent=getDate()
 
-    updateInformationBlock(total,done,todo)
+    updateInformationBlock(total,done,todo,expired)
 }
 
 
@@ -264,13 +267,15 @@ categoryButtonsDiv.addEventListener('click',(event)=>{
 
 
 
-function updateInformationBlock(total,done,todo){
+function updateInformationBlock(total,done,todo,expired){
     const allTasks=document.getElementById("numberAllTasks")
     allTasks.textContent=total
     const finishedTasks=document.getElementById("numberfinishedTasks")
     finishedTasks.textContent=done
     const processTasks=document.getElementById("numberProcessTasks")
     processTasks.textContent=todo
+    const expiredTasks=document.getElementById("numberExpiredTasks")
+    expiredTasks.textContent=expired
 }
 
 function getDate(){
